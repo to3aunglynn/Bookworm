@@ -1,0 +1,105 @@
+{% extends "navigation.html" %}
+
+{% block content %}
+<main>
+
+
+
+    <div class="container">
+
+        <div class="row" style="margin-top: 5%;">
+
+            <div class="col-md-4 order-md-2 mb-4 mt-5">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your cart</span>
+
+                    <span class="badge badge-secondary badge-pill">{{ items_with_subtotals|length }}</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    {% for item in items_with_subtotals %}
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">{{ item.name }}</h6>
+                            <small class="text-muted">Quantity: {{ item.quantity }}</small>
+
+                        </div>
+
+                        <span class="text-muted">${{ '%0.2f'|format(item.price) }}</span>
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (USD)</span>
+
+                        <strong>${{ '%0.2f'|format(total) }}</strong>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="col-md-8 order-md-1 mt-4">
+
+                <h4 class="mb-3">Billing address</h4>
+                {% if session['message'] %}
+                <div class="alert alert-{{ session['alert_type'] }}">{{ session['message'] }}</div>
+                {% endif %}
+                <form class="needs-validation" action="{{ url_for('place_order') }}" method="post">
+
+
+                    <div class="mb-3">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" id="username" name="username" placeholder="username"
+                                value="{{ session['name'] }}" required>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Email </label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com"
+                            value="{{ session['email'] }}" required>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" name="address"
+                            placeholder="enter your address" required>
+                    </div>
+
+
+
+                    <hr class="mb-4">
+
+
+                    <h4 class="mb-3">Payment</h4>
+
+                    <div class="d-block my-3">
+                        {% for method in payment_methods %}
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="payment_method_id"
+                                id="paymentMethod{{ method.id }}" value="{{ method.id }}">
+                            <label class="form-check-label" for="paymentMethod{{ method.id }}">{{ method.pay_method
+                                }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                    <hr class="mb-4">
+                    <button class="btn btn-outline-dark   btn-lg btn-block mb-5" type="submit">Continue to
+                        checkout</button>
+                </form>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+{% endblock %}

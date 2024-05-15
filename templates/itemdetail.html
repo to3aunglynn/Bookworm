@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
+                    src="{{ url_for('static', filename='images/' + book.image_path) }}" alt="{{ book.name }}" /></div>
+            <div class="col-md-6">
+
+
+                <div class="d-flex">
+
+                    <a class="btn btn-outline-dark flex-shrink-0 mb-5" type="button" href="/book">
+                        <i class="bi bi-back"></i>
+                    </a>
+                </div>
+                <div class="small mb-1">Book Id: {{ book.id }}</div>
+                <h1 class="display-5 fw-bolder">{{ book.name }}</h1>
+                <div class="fs-5 mb-5">
+
+
+
+                    <span>${{ book.price }}</span>
+                </div>
+                <p class="lead">{{ book.description }}</p>
+                <div class="d-flex">
+                    <form action="{{ url_for('add_to_cart', book_id=book.id) }}" method="POST">
+                        <input class="form-control text-center me-3 mb-4" name="quantity" type="number" value="1"
+                            style="max-width: 3rem" min="1" required>
+                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

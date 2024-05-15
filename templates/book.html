@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="bg-danger pt-3 pb-1">
+    <marquee class="text-white pb-1">ဘာဘီတို့အကြိုက်စာအုပ်မျိုးစုံရပြီ။
+        ကွန်ပျူတာ / အင်တာနက်
+        ကျန်းမာရေးနှင့် ဆေးပညာ
+        ကဗျာ / အက်ဆေး / ပေးစာ / မိန့်ခွန်း / ဟောပြောချက်
+        ကလေးစာပေ
+        ကုန်သွယ်ရေး / စီးပွားရေး
+        ခရီးသွား / ပထဝီဝင်
+        ဂျာနယ် / သတင်းစာ
+        စီမံခန့်ခွဲမှု
+        စာရင်းအင်းပညာ
+        စိုက်ပျိုးရေး
+        ဒဿနိကဗေဒ
+        နိုင်ငံရေး
+        ပညာရေး
+        ဥပဒေ
+        ပြက္ခဒိန်
+        ဗိသုကာပညာ
+        ဗေဒင် / လက္ခဏာ / သမထ / ဂမ္ဘီရ / စိတ်ဝိဉာဉ်ပိုင်းဆိုင်ရာ
+        ဘာသာစကား / ဘာသာဗေဒ
+        ဘာသာရေး
+        မဂ္ဂဇင်း
+        မိသားစုရေးရာ
+        မွေးမြူရေး
+        ယဉ်ကျေးမှု
+        ရည်ညွန်းစာပေ (အဘိဓာန် / စွယ်စုံကျမ်း / မြေပုံ / လမ်းညွှန်စာအုပ်)
+        ရုပ်ပြ / ကာတွန်း
+        လူမှုရေးနှင့် စိတ်ပညာ
+        ဝတ္ထုတို
+        ဝတ္ထုရှည်
+        ဝါသနာ / အပန်းဖြေ / လက်မှုပညာ
+        သိပ္ပံပညာ
+        သမိုင်း
+        သုတစာပေ
+        ဟာသ / သရော်စာ
+        အချက်အပြုတ်
+        အင်ဂျင်နီယာ / နည်းပညာ / ကုန်ပစ္စည်းထုတ်လုပ်မှု
+        အတ္ထုပ္ပတ္တိ / ကိုယ်တွေ့မှတ်တမ်း
+        အနုပညာ / ဖျော်ဖြေရေး
+        အားကစား / ကစားနည်း</marquee>
+</div>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for book in books %}
+            <div class="col mb-5">
+                <div class="card h-100">
+
+
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/' + book.image_path) }}"
+                        alt="{{ book.name }}" />
+
+                    <div class="card-body p-4">
+                        <div class="text-center">
+
+                            <h5 class="fw-bolder mb-3">{{ book.name }}</h5>
+                            <h6 class="fw-bolder text-black-50 ">{{ book.author }}</h6>
+
+
+                            ${{ book.price }}
+                        </div>
+                    </div>
+
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto mb-1" href="{{ url_for('item', book_id=book.id) }}"
+                                style="width: 100%; margin-bottom: 0.5rem;">View Details</a>
+                        </div>
+                        <form action="{{ url_for('add_to_cart', book_id=book.id) }}" method="POST">
+                            <button type="submit" class="btn btn-outline-dark mt-auto" style="width: 100%;">Add to
+                                Cart</button>
+                        </form>
+
+                    </div>
+
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
