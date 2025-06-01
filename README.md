@@ -96,7 +96,7 @@ bookworm/
 
 
 
-## 👥 Authors
+## 👥 Author
 
 - Toe Aung Linn - [toeaunglynn@gmail.com]
 
